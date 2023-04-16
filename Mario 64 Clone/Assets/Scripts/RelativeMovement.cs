@@ -9,6 +9,8 @@ using UnityEngine;
 // transition between idle and running based on added Speed float, set those not atomic so that they can be overridden by...
 // transition both idle and running to jump based on added Jumping boolean, transition back to idle
 
+
+
 [RequireComponent(typeof(CharacterController))]
 public class RelativeMovement : MonoBehaviour {
 	[SerializeField] Transform target;
@@ -26,6 +28,8 @@ public class RelativeMovement : MonoBehaviour {
 	private CharacterController charController;
 	private Animator animator;
 
+	
+
 	// Use this for initialization
 	void Start() {
 		vertSpeed = minFall;
@@ -33,9 +37,39 @@ public class RelativeMovement : MonoBehaviour {
 		charController = GetComponent<CharacterController>();
 		animator = GetComponent<Animator>();
 	}
+
+
 	
 	// Update is called once per frame
 	void Update() {
+
+		//changes animation state of small when looking at it
+		//box cast in the direction of the player and ruturn the animator component of the object hit
+		RaycastHit hitSmall;
+		RaycastHit hitSmall2;
+		if (Physics.BoxCast(transform.position, new Vector3(0.5f, 0.5f, 0.5f), transform.forward, out hitSmall, transform.rotation, 5.0f))
+		{
+			if(hitSmall.collider.gameObject.GetComponent<Animator>() != null)
+			{
+
+				hitSmall.collider.gameObject.GetComponent<Animator>().SetBool("wached", true);
+				
+			}
+			
+		}
+
+		if (Physics.BoxCast(transform.position, new Vector3(0.5f, 0.5f, 0.5f), -transform.forward, out hitSmall2, transform.rotation, 5.0f))
+		{
+			if(hitSmall2.collider.gameObject.GetComponent<Animator>() != null)
+			{
+
+				hitSmall2.collider.gameObject.GetComponent<Animator>().SetBool("wached", false);
+				
+			}
+
+		}
+
+
 
 		// start with zero and add movement components progressively
 		Vector3 movement = Vector3.zero;

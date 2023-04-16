@@ -41,12 +41,14 @@ public class RelativeMovementSmall : MonoBehaviour {
 		Vector3 movement = Vector3.zero;
 		animator.SetFloat("Speed", 0);
 		bool chase = true;
+
+
         //stop chasing if close to target
 		if (Vector3.Distance(transform.position, target.position) < 2.0f)
 		{
 			chase = false;
 		}
-		
+	
 		
 		if (chase) 
 		{
@@ -57,6 +59,8 @@ public class RelativeMovementSmall : MonoBehaviour {
 			animator.SetFloat("Speed", transform.position.sqrMagnitude);
 
 		}
+
+		
 		
 
 		// raycast down to address steep slopes and dropoff edge
